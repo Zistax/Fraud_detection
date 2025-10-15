@@ -4,7 +4,7 @@ Un sistema di analisi batch per la rilevazione automatica di frodi basato su pip
 
 ## 🚀 Funzionalità
 - Predizione frodi da file CSV batch
-- Generazione automatica di report PDF e grafici SHAP
+- Generazione automatica di report EXCEL e grafici SHAP
 - Logging dettagliato e storico dei batch
 - Threshold calibrabile con `scripts/calibrate_threshold.py`
 - Export dei risultati e reportistica per auditing
