@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Report SHAP - {{ batch_name }}</title>
+    <style>
+      body { font-family: Arial, sans-serif; font-size: 12px; margin: 10px; }
+      table { border-collapse: collapse; width: 100%; table-layout: fixed; word-wrap: break-word; }
+      th, td { border: 1px solid #ddd; padding: 4px; font-size: 11px; }
+      th { background: #f2f2f2; position: sticky; top: 0; z-index: 2; }
+      img { max-width: 100%; max-height: 400px; height: auto; display: block; margin: 10px 0; }
+      tbody tr:nth-child(even) { background: #fafafa; }
+    </style>
+  </head>
+  <body>
+    <h1>Report di batch: {{ batch_name }}</h1>
+    <p>Righe totali: {{ n_rows }} — Frodi predette: {{ n_frauds }}</p>
+
+    {% if shap_image %}
+      <h2>SHAP summary</h2>
+      <img src="{{ shap_image }}" alt="SHAP summary">
+    {% endif %}
+
+    {% if not df.empty %}
+      <h2>Sample righe (primi {{ df.shape[0] }})</h2>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              {% for col in df.columns %}
+                <th>{{ col }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for _, row in df.iterrows() %}
+              <tr>
+                {% for col in df.columns %}
+                  <td>{{ row[col]|e }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>Nessun dato da visualizzare.</p>
+    {% endif %}
+  </body>
+</html>
